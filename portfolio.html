@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Портфоліо робіт дизайнера">
+    <title>Мої роботи - Портфоліо</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Портфоліо</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Про мене</a>
+                <a href="portfolio.html" class="nav-link active">Мої роботи</a>
+                <a href="services.html" class="nav-link">Послуги</a>
+                <button class="btn-auth" id="authBtn">Створити акаунт</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="portfolio-section">
+            <div class="container">
+                <h2 class="section-title">Мої роботи</h2>
+                <div class="portfolio-grid" id="portfolioGrid">
+                    <!-- Роботи будуть додаватися динамічно через CMS -->
+                    <div class="portfolio-item">
+                        <img src="https://via.placeholder.com/400x300" alt="Робота 1">
+                        <div class="portfolio-overlay">
+                            <h3>Назва роботи</h3>
+                            <p>Опис роботи</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-button-container">
+                    <button class="btn btn-primary" id="contactBtn">Контакт</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Всі права захищені</p>
+        </div>
+    </footer>
+
+    <!-- Модальне вікно контактів -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Контакти</h2>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <span id="contactEmail">example@email.com</span></p>
+                <p><strong>Телефон:</strong> <span id="contactPhone">+380 XX XXX XX XX</span></p>
+                <p><strong>Соціальні мережі:</strong></p>
+                <div class="social-links">
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Behance</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/portfolio.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                } else {
+                    document.getElementById('authBtn').textContent = 'Вихід';
+                    document.getElementById('authBtn').onclick = () => {
+                        netlifyIdentity.logout();
+                    };
+                }
+            });
+        }
+
+        document.getElementById('authBtn').addEventListener('click', function() {
+            if (window.netlifyIdentity && !netlifyIdentity.currentUser()) {
+                netlifyIdentity.open();
+            }
+        });
+    </script>
+</body>
+</html>
+

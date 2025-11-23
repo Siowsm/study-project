@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Портфоліо дизайнера">
+    <title>Портфоліо дизайнера</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Портфоліо</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Про мене</a>
+                <a href="portfolio.html" class="nav-link">Мої роботи</a>
+                <a href="services.html" class="nav-link">Послуги</a>
+                <button class="btn-auth" id="authBtn">Створити акаунт</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-me-section">
+            <div class="container">
+                <div class="about-content">
+                    <h2 class="section-title" id="aboutTitle">Про мене</h2>
+                    <div class="about-image-container">
+                        <img id="aboutImage" src="https://via.placeholder.com/400x400" alt="Про мене" class="about-image">
+                    </div>
+                    <div class="about-text" id="aboutText">
+                        <p>Тут буде ваш текст про себе. Ви можете редагувати його через адмін панель.</p>
+                    </div>
+                    <div class="about-gif-container">
+                        <img id="aboutGif" src="https://via.placeholder.com/600x300" alt="Робота дизайнера" class="about-gif">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Всі права захищені</p>
+        </div>
+    </footer>
+
+    <!-- Модальне вікно автентифікації -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="netlify-identity-widget"></div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                } else {
+                    document.getElementById('authBtn').textContent = 'Вихід';
+                    document.getElementById('authBtn').onclick = () => {
+                        netlifyIdentity.logout();
+                    };
+                }
+            });
+        }
+
+        // Відкриття модального вікна
+        document.getElementById('authBtn').addEventListener('click', function() {
+            if (window.netlifyIdentity && !netlifyIdentity.currentUser()) {
+                netlifyIdentity.open();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Оформлення замовлення">
+    <title>Оформлення замовлення - Портфоліо</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Портфоліо</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Про мене</a>
+                <a href="portfolio.html" class="nav-link">Мої роботи</a>
+                <a href="services.html" class="nav-link">Послуги</a>
+                <button class="btn-auth" id="authBtn">Створити акаунт</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="order-section">
+            <div class="container">
+                <h2 class="section-title">Оформлення замовлення</h2>
+                <form id="orderForm" class="order-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Ім'я *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Прізвище *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">Місто *</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="street">Вулиця *</label>
+                        <input type="text" id="street" name="street" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="house">Дім *</label>
+                        <input type="text" id="house" name="house" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Номер телефону *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">Замовити</button>
+                </form>
+
+                <!-- Вибір тарифів (показується після натискання "Замовити") -->
+                <div id="tariffSelection" class="tariff-selection" style="display: none;">
+                    <h3 class="tariff-title">Оберіть тариф</h3>
+                    <div class="tariff-grid" id="tariffGrid">
+                        <!-- Тарифи будуть додаватися динамічно -->
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="backToForm">Назад до форми</button>
+                </div>
+
+                <div id="orderMessage" class="message"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Всі права захищені</p>
+        </div>
+    </footer>
+
+    <script src="js/order.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                } else {
+                    document.getElementById('authBtn').textContent = 'Вихід';
+                    document.getElementById('authBtn').onclick = () => {
+                        netlifyIdentity.logout();
+                    };
+                }
+            });
+        }
+
+        document.getElementById('authBtn').addEventListener('click', function() {
+            if (window.netlifyIdentity && !netlifyIdentity.currentUser()) {
+                netlifyIdentity.open();
+            }
+        });
+    </script>
+</body>
+</html>
+

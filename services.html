@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Послуги дизайнера">
+    <title>Послуги - Портфоліо</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Портфоліо</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Про мене</a>
+                <a href="portfolio.html" class="nav-link">Мої роботи</a>
+                <a href="services.html" class="nav-link active">Послуги</a>
+                <button class="btn-auth" id="authBtn">Створити акаунт</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="services-section">
+            <div class="container">
+                <h2 class="section-title" id="serviceTitle">Замовлення зйомки</h2>
+                <div class="service-content" id="serviceContent">
+                    <p>Тут буде опис послуги. Ви можете редагувати через адмін панель.</p>
+                </div>
+                <div class="service-button-container">
+                    <a href="order.html" class="btn btn-primary btn-large">Хочу оформити замовлення</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Всі права захищені</p>
+        </div>
+    </footer>
+
+    <script src="js/services.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                } else {
+                    document.getElementById('authBtn').textContent = 'Вихід';
+                    document.getElementById('authBtn').onclick = () => {
+                        netlifyIdentity.logout();
+                    };
+                }
+            });
+        }
+
+        document.getElementById('authBtn').addEventListener('click', function() {
+            if (window.netlifyIdentity && !netlifyIdentity.currentUser()) {
+                netlifyIdentity.open();
+            }
+        });
+    </script>
+</body>
+</html>
+
